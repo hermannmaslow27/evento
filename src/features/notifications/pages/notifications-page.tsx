@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Bell } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { requireUser } from "@/lib/auth/guards";
 import { EmptyState } from "@/components/ui/states";
@@ -33,7 +34,7 @@ export async function NotificationsPage({ filter, page }: { filter: "all" | "unr
         </Link>
       </div>
       {items.length === 0 ? (
-        <EmptyState icon="🔔" title={t("empty")} description={t("emptyDescription")} />
+        <EmptyState icon={Bell} title={t("empty")} description={t("emptyDescription")} />
       ) : (
         <NotificationList items={items} hasUnread={unread > 0} />
       )}

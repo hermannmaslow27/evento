@@ -1,9 +1,10 @@
 import type { ComponentProps, ReactNode } from "react";
+import { Star } from "lucide-react";
 import { cn, initials } from "@/lib/utils";
 import { SmartImage } from "./smart-image";
 
 export function Card({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("rounded-2xl border border-gray-200 bg-white shadow-sm", className)} {...props} />;
+  return <div className={cn("rounded-2xl border border-gray-200/90 bg-white shadow-sm shadow-gray-950/[0.03]", className)} {...props} />;
 }
 
 export function CardHeader({ title, description, action }: { title: ReactNode; description?: ReactNode; action?: ReactNode }) {
@@ -81,9 +82,19 @@ export function Skeleton({ className }: { className?: string }) {
   return <div aria-hidden="true" className={cn("animate-pulse rounded-xl bg-gray-200", className)} />;
 }
 
+export function RatingStars({ rating, className }: { rating: number; className?: string }) {
+  return (
+    <span aria-hidden="true" className={cn("inline-flex items-center gap-0.5 text-amber-400", className)}>
+      {Array.from({ length: 5 }, (_, index) => (
+        <Star key={index} className={cn("h-4 w-4", index < rating && "fill-current")} strokeWidth={1.8} />
+      ))}
+    </span>
+  );
+}
+
 export function StatCard({ label, value, hint }: { label: string; value: ReactNode; hint?: ReactNode }) {
   return (
-    <Card className="p-5">
+    <Card className="p-5 transition-shadow hover:shadow-md">
       <p className="text-sm text-gray-500">{label}</p>
       <p className="mt-2 text-2xl font-bold text-gray-900">{value}</p>
       {hint && <p className="mt-1 text-xs text-gray-500">{hint}</p>}

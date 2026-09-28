@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Ticket } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { requireUser } from "@/lib/auth/guards";
@@ -39,7 +40,7 @@ export async function TicketsPage() {
     <div className="mx-auto max-w-4xl space-y-8">
       <PageHeading title={t("title")} description={t("subtitle")} />
       {tickets.length === 0 ? (
-        <EmptyState icon="🎟️" title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
+        <EmptyState icon={Ticket} title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
       ) : (
         <>
           <section aria-labelledby="upcoming-tickets">

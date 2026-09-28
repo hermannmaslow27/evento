@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Bell } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Dropdown, menuItemClass } from "@/components/ui/dropdown";
@@ -37,7 +38,7 @@ export function NotificationBell() {
       triggerClassName="relative h-10 w-10 justify-center hover:bg-gray-100"
       trigger={
         <>
-          <span aria-hidden="true" className="text-lg">🔔</span>
+          <Bell aria-hidden="true" className="h-5 w-5 text-gray-700" />
           {unread > 0 && (
             <span aria-hidden="true" className="absolute right-1 top-1 min-w-4 rounded-full bg-red-600 px-1 text-[10px] font-bold leading-4 text-white">
               {unread > 9 ? "9+" : unread}

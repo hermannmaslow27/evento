@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
+import { MapPin } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/display";
 import { SmartImage } from "@/components/ui/smart-image";
@@ -12,7 +13,7 @@ export function EventCard({ event, priority = false }: { event: EventListItem; p
   const soldOut = event.remaining <= 0 && event.minPrice !== null;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm shadow-gray-950/[0.03] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-950/10">
       <div className="relative aspect-[16/10] bg-gradient-to-br from-brand-200 to-sky-200">
         {event.coverImage && (
           <SmartImage
@@ -46,7 +47,7 @@ export function EventCard({ event, priority = false }: { event: EventListItem; p
             {formatDate(event.startDate, locale, event.timezone)} · {formatTime(event.startDate, locale, event.timezone)}
           </time>
         </p>
-        <p className="mt-0.5 truncate text-sm text-gray-500">📍 {event.city}, {event.country}</p>
+        <p className="mt-1 flex items-center gap-1.5 truncate text-sm text-gray-500"><MapPin aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-600" /> {event.city}, {event.country}</p>
         <p className="mt-auto pt-3 text-sm font-semibold text-gray-900">
           {event.minPrice === null
             ? t("noTickets")

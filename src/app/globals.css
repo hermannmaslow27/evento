@@ -27,6 +27,12 @@ html {
 
 body {
   @apply bg-gray-50 text-gray-900 antialiased;
+  background-image: radial-gradient(circle at top, rgb(245 243 255 / 0.7), transparent 34rem);
+}
+
+::selection {
+  background: var(--color-brand-200);
+  color: var(--color-brand-900);
 }
 
 :focus-visible {

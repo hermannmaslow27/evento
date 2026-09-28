@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
+import { Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { requireRole } from "@/lib/auth/guards";
-import { Badge, Card, StatCard, statusTone } from "@/components/ui/display";
+import { Badge, Card, RatingStars, StatCard, statusTone } from "@/components/ui/display";
 import { Input } from "@/components/ui/fields";
 import { Pagination } from "@/components/ui/pagination";
 import { PageHeading } from "@/components/layout/dashboard-shell";
@@ -141,7 +142,7 @@ export async function AdminEventsPage({ q, page }: { q?: string; page: number })
       <Table headers={[t("cols.event"), t("cols.organizer"), t("cols.date"), t("cols.status"), t("cols.actions")]} empty={!items.length}>
         {items.map((e) => (
           <tr key={e.id}>
-            <td className={td}><Link href={`/events/${e.slug}`} className="font-medium hover:underline">{e.title}</Link>{e.isFeatured && <Badge tone="brand" className="ml-2">★</Badge>}</td>
+            <td className={td}><Link href={`/events/${e.slug}`} className="font-medium hover:underline">{e.title}</Link>{e.isFeatured && <Badge tone="brand" className="ml-2"><Star aria-hidden="true" className="h-3 w-3 fill-current" /></Badge>}</td>
             <td className={td}>{e.organizerName}</td>
             <td className={td}>{formatDate(e.startDate, locale)}</td>
             <td className={td}><Badge tone={statusTone(e.status)}>{ts(`event.${e.status}`)}</Badge></td>
@@ -276,7 +277,7 @@ export async function AdminReviewsPage({ page }: { page: number }) {
       <Table headers={[t("cols.content"), t("cols.event"), t("cols.user"), t("cols.created"), t("cols.actions")]} empty={!items.length}>
         {items.map((r) => (
           <tr key={r.id} className={r.hidden ? "bg-red-50/40" : undefined}>
-            <td className={td}><span className="text-amber-500">{"★".repeat(r.rating)}</span><p className="max-w-sm text-gray-700">{r.content}</p></td>
+            <td className={td}><RatingStars rating={r.rating} /><p className="max-w-sm text-gray-700">{r.content}</p></td>
             <td className={td}><Link href={`/events/${r.eventSlug}`} className="hover:underline">{r.eventTitle}</Link></td>
             <td className={td}>{r.email}</td>
             <td className={td}>{formatDate(r.createdAt, locale)}</td>

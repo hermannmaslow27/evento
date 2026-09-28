@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useTransition } from "react";
+import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Link } from "@/i18n/navigation";
@@ -16,7 +17,7 @@ export function FavoriteButton({ eventId, initial, isAuthenticated }: { eventId:
   if (!isAuthenticated) {
     return (
       <Link href="/login" className={buttonClass({ variant: "outline" })}>
-        <span aria-hidden="true">🤍</span> {t("add")}
+        <Heart aria-hidden="true" className="h-4 w-4" /> {t("add")}
       </Link>
     );
   }
@@ -35,7 +36,7 @@ export function FavoriteButton({ eventId, initial, isAuthenticated }: { eventId:
         })
       }
     >
-      <span aria-hidden="true">{favorited ? "❤️" : "🤍"}</span>
+      <Heart aria-hidden="true" className={favorited ? "h-4 w-4 fill-red-500 text-red-500" : "h-4 w-4"} />
       {favorited ? t("remove") : t("add")}
     </Button>
   );

@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { BadgeCheck, MailCheck, PartyPopper } from "lucide-react";
 import { Link, redirect } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
 import { isGoogleEnabled } from "@/lib/auth";
@@ -92,7 +93,7 @@ export async function VerifyEmailPage({ token }: { token?: string }) {
   const verified = token ? await verifyEmailToken(token) : false;
   return (
     <div className="text-center">
-      <p aria-hidden="true" className="text-5xl">{verified ? "✅" : "✉️"}</p>
+      <span aria-hidden="true" className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">{verified ? <BadgeCheck className="h-8 w-8" /> : <MailCheck className="h-8 w-8" />}</span>
       <AuthHeading
         title={verified ? t("verifiedTitle") : t("verifyTitle")}
         description={verified ? t("verifiedDescription") : token ? t("verifyInvalid") : t("verifyDescription")}
@@ -110,7 +111,7 @@ export async function WelcomePage() {
   const t = await getTranslations("auth");
   return (
     <div className="text-center">
-      <p aria-hidden="true" className="text-5xl">🎉</p>
+      <span aria-hidden="true" className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-700"><PartyPopper className="h-8 w-8" /></span>
       <AuthHeading title={t("welcomeTitle", { name: user.firstName })} description={t("welcomeDescription")} />
       <div className="mb-6 flex items-center justify-center gap-2 text-sm">
         <span>{t("emailStatus")}</span>

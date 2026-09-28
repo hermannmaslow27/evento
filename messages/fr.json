@@ -442,7 +442,7 @@
     "backToEvent": "Retour à l’événement",
     "bookingTitle": "Réservation",
     "reference": "Référence {id}",
-    "confirmedTitle": "Réservation confirmée 🎉",
+    "confirmedTitle": "Réservation confirmée",
     "confirmedDescription": "{count, plural, one {Votre billet est prêt.} other {Vos # billets sont prêts.}}",
     "awaitingPayment": "En attente de la confirmation du paiement…",
     "statusMessage": {

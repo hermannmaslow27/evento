@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type ModalProps = {
@@ -41,7 +42,7 @@ export function Modal({ open, onClose, title, description, children, footer }: M
             {title}
           </h2>
           <button type="button" onClick={onClose} className="rounded-lg p-1 text-gray-500 hover:bg-gray-100" aria-label={t("close")}>
-            ✕
+            <X aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
         {description && (

@@ -442,7 +442,7 @@
     "backToEvent": "Back to event",
     "bookingTitle": "Booking",
     "reference": "Reference {id}",
-    "confirmedTitle": "Booking confirmed 🎉",
+    "confirmedTitle": "Booking confirmed",
     "confirmedDescription": "{count, plural, one {Your ticket is ready.} other {Your # tickets are ready.}}",
     "awaitingPayment": "Waiting for payment confirmation…",
     "statusMessage": {

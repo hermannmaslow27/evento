@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth/guards";
-import { Avatar, Badge, Card } from "@/components/ui/display";
+import { Avatar, Badge, Card, RatingStars } from "@/components/ui/display";
 import { ImagePreview, SmartImage } from "@/components/ui/smart-image";
 import { Pagination } from "@/components/ui/pagination";
 import { formatDateTime, formatTime } from "@/lib/format";
@@ -135,7 +135,7 @@ export async function EventDetailPage({ slug, commentPage }: { slug: string; com
           <section aria-labelledby="reviews" className="space-y-4">
             <h2 id="reviews" className="text-xl font-bold">
               {t("reviews")}{" "}
-              {event.rating.average !== null && <span className="text-base font-medium text-gray-500">★ {event.rating.average.toFixed(1)} ({event.rating.total})</span>}
+              {event.rating.average !== null && <span className="inline-flex items-center gap-1.5 text-base font-medium text-gray-500"><RatingStars rating={Math.round(event.rating.average)} /> {event.rating.average.toFixed(1)} ({event.rating.total})</span>}
             </h2>
             {user && (eligibility.allowed || userReview) ? (
               <ReviewForm eventId={event.id} initial={userReview} />
@@ -150,7 +150,7 @@ export async function EventDetailPage({ slug, commentPage }: { slug: string; com
                   <li key={r.id} className="rounded-2xl border border-gray-200 bg-white p-4">
                     <div className="flex items-center justify-between gap-2">
                       <p className="font-semibold">{r.firstName} {r.lastName}</p>
-                      <p className="text-amber-500" aria-label={t("ratingLabel", { rating: r.rating })}>{"★".repeat(r.rating)}<span className="text-gray-300">{"★".repeat(5 - r.rating)}</span></p>
+                      <p aria-label={t("ratingLabel", { rating: r.rating })}><RatingStars rating={r.rating} /></p>
                     </div>
                     <p className="mt-1 whitespace-pre-line text-sm text-gray-700">{r.content}</p>
                     {user && user.id !== r.userId && <div className="mt-2"><ReportButton targetType="review" targetId={r.id} compact /></div>}

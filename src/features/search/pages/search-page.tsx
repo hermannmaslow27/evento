@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { SearchX } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buttonClass } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/states";
@@ -47,7 +48,7 @@ export async function SearchPage({ params }: { params: SearchParams }) {
             </>
           ) : (
             <EmptyState
-              icon="🔎"
+              icon={SearchX}
               title={t("emptyTitle")}
               description={t("emptyDescription")}
               action={<Link href="/search" className={buttonClass({ variant: "outline" })}>{t("reset")}</Link>}

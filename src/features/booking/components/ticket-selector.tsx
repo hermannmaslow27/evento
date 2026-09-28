@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Minus, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -92,11 +93,11 @@ export function TicketSelector({ eventId, ticketTypes, canBook, isAuthenticated,
                 </div>
                 <div className="flex items-center gap-1" role="group" aria-label={t("quantityFor", { name: tt.name })}>
                   <Button variant="outline" size="icon" className="h-8 w-8" disabled={disabled || qty <= 0} onClick={() => setQuantity(eventId, tt.id, qty - 1)} aria-label={t("decrease", { name: tt.name })}>
-                    −
+                    <Minus aria-hidden="true" className="h-4 w-4" />
                   </Button>
                   <span className="w-7 text-center font-semibold" aria-live="polite">{qty}</span>
                   <Button variant="outline" size="icon" className="h-8 w-8" disabled={disabled || qty >= max} onClick={() => setQuantity(eventId, tt.id, qty + 1)} aria-label={t("increase", { name: tt.name })}>
-                    +
+                    <Plus aria-hidden="true" className="h-4 w-4" />
                   </Button>
                 </div>
               </div>

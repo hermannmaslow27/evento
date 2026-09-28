@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { Star } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -48,7 +49,7 @@ export function ReviewForm({ eventId, initial }: Props) {
           {[1, 2, 3, 4, 5].map((value) => (
             <label key={value} className="cursor-pointer">
               <input type="radio" name="rating-ui" value={value} checked={rating === value} onChange={() => setValue("rating", value, { shouldValidate: true })} className="peer sr-only" />
-              <span className={cn("rounded text-2xl peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500", value <= rating ? "text-amber-400" : "text-gray-300")} aria-hidden="true">★</span>
+              <Star className={cn("h-7 w-7 rounded peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500", value <= rating ? "fill-amber-400 text-amber-400" : "text-gray-300")} aria-hidden="true" strokeWidth={1.8} />
               <span className="sr-only">{t("stars", { count: value })}</span>
             </label>
           ))}

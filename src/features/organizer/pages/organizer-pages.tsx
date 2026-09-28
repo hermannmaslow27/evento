@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Building2, CalendarDays } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { asc, eq } from "drizzle-orm";
 import { db } from "@/db";
@@ -22,7 +23,7 @@ import { OrganizerProfileForm } from "../components/organizer-profile-form";
 async function NeedsProfile() {
   const t = await getTranslations("organizer");
   return (
-    <EmptyState icon="🏢" title={t("needsProfileTitle")} description={t("needsProfileDescription")} action={<Link href="/organizer/profile" className={buttonClass()}>{t("createProfile")}</Link>} />
+    <EmptyState icon={Building2} title={t("needsProfileTitle")} description={t("needsProfileDescription")} action={<Link href="/organizer/profile" className={buttonClass()}>{t("createProfile")}</Link>} />
   );
 }
 
@@ -52,7 +53,7 @@ export async function OrganizerDashboardPage() {
       <Card>
         <div className="border-b border-gray-100 p-5"><h2 className="font-semibold">{t("salesByEvent")}</h2></div>
         {eventsList.length === 0 ? (
-          <div className="p-5"><EmptyState icon="📅" title={t("noEvents")} /></div>
+          <div className="p-5"><EmptyState icon={CalendarDays} title={t("noEvents")} /></div>
         ) : (
           <ul className="divide-y divide-gray-100">
             {eventsList.slice(0, 6).map((e) => {
@@ -126,7 +127,7 @@ export async function OrganizerEventsPage() {
     <div>
       <PageHeading title={t("eventsTitle")} action={<Link href="/organizer/events/new" className={buttonClass()}>{t("nav.create")}</Link>} />
       {list.length === 0 ? (
-        <EmptyState icon="📅" title={t("noEvents")} description={t("noEventsDescription")} action={<Link href="/organizer/events/new" className={buttonClass()}>{t("nav.create")}</Link>} />
+        <EmptyState icon={CalendarDays} title={t("noEvents")} description={t("noEventsDescription")} action={<Link href="/organizer/events/new" className={buttonClass()}>{t("nav.create")}</Link>} />
       ) : (
         <ul className="space-y-3">
           {list.map((e) => (
@@ -262,7 +263,7 @@ export async function OnboardingPage() {
   if (organizer) {
     return (
       <div className="text-center">
-        <p aria-hidden="true" className="text-5xl">🏢</p>
+        <span aria-hidden="true" className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-700"><Building2 className="h-8 w-8" /></span>
         <h1 className="mt-3 text-2xl font-bold">{t("alreadyTitle")}</h1>
         <Link href="/organizer" className={buttonClass({ className: "mt-6 w-full" })}>{t("goToDashboard")}</Link>
       </div>

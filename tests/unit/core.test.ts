@@ -54,9 +54,15 @@ describe("rate limiting", () => {
 
 describe("uploads & tickets security", () => {
   it("accepts only https image URLs when Cloudinary is not configured", () => {
-    expect(isAllowedImageUrl("https://example.com/a.jpg", "u1")).toBe(true);
-    expect(isAllowedImageUrl("http://example.com/a.jpg", "u1")).toBe(false);
-    expect(isAllowedImageUrl("javascript:alert(1)", "u1")).toBe(false);
+    const origCloud = process.env.CLOUDINARY_CLOUD_NAME;
+    delete process.env.CLOUDINARY_CLOUD_NAME;
+    try {
+      expect(isAllowedImageUrl("https://example.com/a.jpg", "u1")).toBe(true);
+      expect(isAllowedImageUrl("http://example.com/a.jpg", "u1")).toBe(false);
+      expect(isAllowedImageUrl("javascript:alert(1)", "u1")).toBe(false);
+    } finally {
+      process.env.CLOUDINARY_CLOUD_NAME = origCloud;
+    }
   });
   it("detects forged ticket QR payloads", () => {
     expect(verifyTicketPayload(ticketPayload("EVT-ABC"))).toBe("EVT-ABC");

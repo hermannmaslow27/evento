@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
 import { useUiStore } from "@/stores/ui-store";
@@ -24,10 +25,10 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
         className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-xl text-gray-700 hover:bg-gray-100"
       >
         <span className="sr-only">{open ? t("closeMenu") : t("openMenu")}</span>
-        <span aria-hidden="true">{open ? "✕" : "☰"}</span>
+        {open ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
       </button>
       {open && (
-        <div id="mobile-menu" className="absolute inset-x-0 top-16 z-40 border-b border-gray-200 bg-white p-4 shadow-lg">
+        <div id="mobile-menu" className="absolute inset-x-0 top-16 z-40 border-b border-gray-200 bg-white/95 p-4 shadow-xl backdrop-blur-xl">
           <NavLinks items={items} label={t("menu")} />
         </div>
       )}

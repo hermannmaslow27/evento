@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Heart } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { requireUser } from "@/lib/auth/guards";
 import { buttonClass } from "@/components/ui/button";
@@ -14,7 +15,7 @@ export async function FavoritesPage() {
     <div>
       <PageHeading title={t("title")} description={t("subtitle")} />
       {items.length === 0 ? (
-        <EmptyState icon="❤️" title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
+        <EmptyState icon={Heart} title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
       ) : (
         <EventGrid events={items} />
       )}

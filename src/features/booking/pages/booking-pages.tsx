@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Clock3, ReceiptText } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link, redirect } from "@/i18n/navigation";
 import { requireUser } from "@/lib/auth/guards";
@@ -34,7 +35,7 @@ export async function CheckoutPage({ bookingId }: { bookingId: string }) {
         </Card>
       ) : (
         <EmptyState
-          icon="⌛"
+          icon={Clock3}
           title={t("notPayableTitle")}
           description={t("notPayableDescription")}
           action={<Link href={`/events/${booking.event.slug}`} className={buttonClass()}>{t("backToEvent")}</Link>}
@@ -95,7 +96,7 @@ export async function BookingsPage({ page }: { page: number }) {
     <div className="mx-auto max-w-3xl">
       <PageHeading title={t("myBookings")} />
       {items.length === 0 ? (
-        <EmptyState icon="🧾" title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
+        <EmptyState icon={ReceiptText} title={t("emptyTitle")} description={t("emptyDescription")} action={<Link href="/discover" className={buttonClass()}>{t("explore")}</Link>} />
       ) : (
         <ul className="space-y-3">
           {items.map((b) => (

@@ -1,9 +1,10 @@
 "use client";
 
+import type { LucideIcon } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-export type NavItem = { href: string; label: string; icon?: string; exact?: boolean };
+export type NavItem = { href: string; label: string; icon?: LucideIcon; exact?: boolean };
 
 export function NavLinks({ items, label, orientation = "vertical" }: { items: NavItem[]; label: string; orientation?: "vertical" | "horizontal" }) {
   const pathname = usePathname();
@@ -12,6 +13,7 @@ export function NavLinks({ items, label, orientation = "vertical" }: { items: Na
       <ul className={cn(orientation === "vertical" ? "space-y-1" : "flex gap-1 overflow-x-auto")}>
         {items.map((item) => {
           const active = item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const Icon = item.icon;
           return (
             <li key={item.href}>
               <Link
@@ -22,7 +24,7 @@ export function NavLinks({ items, label, orientation = "vertical" }: { items: Na
                   active ? "bg-brand-50 text-brand-700" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
                 )}
               >
-                {item.icon && <span aria-hidden="true">{item.icon}</span>}
+                {Icon && <Icon aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.9} />}
                 {item.label}
               </Link>
             </li>

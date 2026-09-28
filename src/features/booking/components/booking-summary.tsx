@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
+import { MapPin } from "lucide-react";
 import { Badge, Card, statusTone } from "@/components/ui/display";
 import { formatDateTime, formatMoney } from "@/lib/format";
 import type { UserBooking } from "../queries";
@@ -14,7 +15,7 @@ export function BookingSummary({ booking }: { booking: UserBooking }) {
         <div>
           <h2 className="text-lg font-semibold">{booking.event.title}</h2>
           <p className="text-sm text-gray-500">{formatDateTime(booking.event.startDate, locale, booking.event.timezone)}</p>
-          <p className="text-sm text-gray-500">📍 {booking.event.location}, {booking.event.city}</p>
+          <p className="flex items-center gap-1.5 text-sm text-gray-500"><MapPin aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-600" />{booking.event.location}, {booking.event.city}</p>
         </div>
         <Badge tone={statusTone(booking.status)}>{ts(`booking.${booking.status}`)}</Badge>
       </div>

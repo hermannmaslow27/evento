@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { X } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -94,7 +95,7 @@ export function EventForm({ categories, initial, eventId }: Props) {
               {gallery.map((url, i) => (
                 <li key={url + i} className="relative">
                   <ImagePreview src={url} alt={t("galleryImage", { index: i + 1 })} className="aspect-square" />
-                  <button type="button" onClick={() => setValue("gallery", gallery.filter((_, j) => j !== i))} className="absolute right-1 top-1 rounded-full bg-white/90 px-2 text-sm shadow" aria-label={t("removeImage", { index: i + 1 })}>✕</button>
+                  <button type="button" onClick={() => setValue("gallery", gallery.filter((_, j) => j !== i))} className="absolute right-1 top-1 rounded-full bg-white/90 p-1.5 text-gray-700 shadow transition hover:bg-white" aria-label={t("removeImage", { index: i + 1 })}><X aria-hidden="true" className="h-4 w-4" /></button>
                 </li>
               ))}
             </ul>
