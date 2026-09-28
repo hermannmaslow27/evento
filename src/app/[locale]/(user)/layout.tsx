@@ -1,20 +1,19 @@
 import type { ReactNode } from "react";
-import { Bell, Heart, ReceiptText, Ticket, UserRound } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { NavLinks } from "@/components/layout/nav-links";
+import { NavLinks, type NavItem } from "@/components/layout/nav-links";
 import { requireUser } from "@/lib/auth/guards";
 
 export default async function UserLayout({ children }: { children: ReactNode }) {
   await requireUser();
   const t = await getTranslations("nav");
-  const items = [
-    { href: "/profile", label: t("profile"), icon: UserRound },
-    { href: "/tickets", label: t("tickets"), icon: Ticket },
-    { href: "/bookings", label: t("bookings"), icon: ReceiptText },
-    { href: "/favorites", label: t("favorites"), icon: Heart },
-    { href: "/notifications", label: t("notifications"), icon: Bell },
+  const items: NavItem[] = [
+    { href: "/profile", label: t("profile"), iconName: "profile" },
+    { href: "/tickets", label: t("tickets"), iconName: "tickets" },
+    { href: "/bookings", label: t("bookings"), iconName: "bookings" },
+    { href: "/favorites", label: t("favorites"), iconName: "favorites" },
+    { href: "/notifications", label: t("notifications"), iconName: "notifications" },
   ];
   return (
     <>

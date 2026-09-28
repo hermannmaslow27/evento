@@ -1,19 +1,93 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
+import {
+  Bell,
+  Building2,
+  CalendarDays,
+  ChartNoAxesCombined,
+  CirclePlus,
+  CreditCard,
+  Flag,
+  Heart,
+  Home,
+  MessageCircle,
+  ReceiptText,
+  Search,
+  Settings,
+  Star,
+  Tags,
+  Ticket,
+  UserRound,
+  UsersRound,
+  type LucideIcon,
+} from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-export type NavItem = { href: string; label: string; icon?: LucideIcon; exact?: boolean };
+export type NavIconName =
+  | "profile"
+  | "tickets"
+  | "bookings"
+  | "favorites"
+  | "notifications"
+  | "dashboard"
+  | "events"
+  | "create"
+  | "organizers"
+  | "users"
+  | "categories"
+  | "payments"
+  | "reports"
+  | "reviews"
+  | "comments"
+  | "settings"
+  | "search"
+  | "home";
 
-export function NavLinks({ items, label, orientation = "vertical" }: { items: NavItem[]; label: string; orientation?: "vertical" | "horizontal" }) {
+const ICON_MAP: Record<NavIconName, LucideIcon> = {
+  profile: UserRound,
+  tickets: Ticket,
+  bookings: ReceiptText,
+  favorites: Heart,
+  notifications: Bell,
+  dashboard: ChartNoAxesCombined,
+  events: CalendarDays,
+  create: CirclePlus,
+  organizers: Building2,
+  users: UsersRound,
+  categories: Tags,
+  payments: CreditCard,
+  reports: Flag,
+  reviews: Star,
+  comments: MessageCircle,
+  settings: Settings,
+  search: Search,
+  home: Home,
+};
+
+export type NavItem = {
+  href: string;
+  label: string;
+  iconName?: NavIconName;
+  exact?: boolean;
+};
+
+export function NavLinks({
+  items,
+  label,
+  orientation = "vertical",
+}: {
+  items: NavItem[];
+  label: string;
+  orientation?: "vertical" | "horizontal";
+}) {
   const pathname = usePathname();
   return (
     <nav aria-label={label}>
       <ul className={cn(orientation === "vertical" ? "space-y-1" : "flex gap-1 overflow-x-auto")}>
         {items.map((item) => {
           const active = item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
-          const Icon = item.icon;
+          const Icon = item.iconName ? ICON_MAP[item.iconName] : undefined;
           return (
             <li key={item.href}>
               <Link

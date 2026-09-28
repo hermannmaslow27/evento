@@ -25,29 +25,36 @@ export type CurrentUser = {
  * Returns the authenticated user, always re-read from the database so that
  * role changes, suspensions and bans take effect immediately. Never exposes passwordHash.
  */
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
-  const session = await auth();
-  const id = session?.user?.id;
-  if (!id) return null;
-  const [user] = await db
-    .select({
-      id: users.id,
-      firstName: users.firstName,
-      lastName: users.lastName,
-      email: users.email,
-      phoneNumber: users.phoneNumber,
-      image: users.image,
-      role: users.role,
-      status: users.status,
-      isEmailVerified: users.isEmailVerified,
-      locale: users.locale,
-      createdAt: users.createdAt,
-    })
-    .from(users)
-    .where(eq(users.id, id))
-    .limit(1);
-  if (!user || user.status !== "active") return null;
-  return user;
+  try {
+    const session = await auth();
+    const id = session?.user?.id;
+    if (!id || !UUID_REGEX.test(id)) return null;
+    const [user] = await db
+      .select({
+        id: users.id,
+        firstName: users.firstName,
+        lastName: users.lastName,
+        email: users.email,
+        phoneNumber: users.phoneNumber,
+        image: users.image,
+        role: users.role,
+        status: users.status,
+        isEmailVerified: users.isEmailVerified,
+        locale: users.locale,
+        createdAt: users.createdAt,
+      })
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+    if (!user || user.status !== "active") return null;
+    return user;
+  } catch (error) {
+    console.error("getCurrentUser error:", error);
+    return null;
+  }
 });
 
 export async function requireUser(): Promise<CurrentUser> {

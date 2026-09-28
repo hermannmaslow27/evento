@@ -10,12 +10,12 @@ import { ChangePasswordForm, ProfileForm } from "../components/profile-forms";
 
 export async function ProfilePage() {
   const user = await requireUser();
-  const [t, ts, [pw]] = await Promise.all([
+  const [t, ts, pwRows] = await Promise.all([
     getTranslations("profile"),
     getTranslations("status"),
     db.select({ hasPassword: users.passwordHash }).from(users).where(eq(users.id, user.id)).limit(1),
   ]);
-  const name = `${user.firstName} ${user.lastName}`.trim();
+  const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || user.email;
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -43,7 +43,7 @@ export async function ProfilePage() {
       <Card>
         <CardHeader title={t("security")} description={t("securityDescription")} />
         <div className="p-5">
-          <ChangePasswordForm hasPassword={Boolean(pw?.hasPassword)} />
+          <ChangePasswordForm hasPassword={Boolean(pwRows?.[0]?.hasPassword)} />
         </div>
       </Card>
     </div>
